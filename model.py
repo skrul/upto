@@ -7,8 +7,18 @@ class UserPreference(db.Model):
     last_update_week_id = db.StringProperty()
 
     @classmethod
-    def get_user_preference(cls, email_address, user=None):
+    def get_by_email(cls, email):
         pass
+
+    @classmethod
+    def get_by_user(cls, user):
+        up = UserPreference.get_by_key_name(user.email())
+        if up is None:
+            up = UserPreference(key_name=user.email())
+            up.user = user
+            up.last_update_week_id = None
+            db.put(up)
+        return up
 
     @classmethod
     def get_all_user_preferences(cls):
@@ -19,7 +29,7 @@ class UserPreference(db.Model):
         pass
 
 class WeekUpdate(db.Model):
-    submit_date = db.DataProperty()
+    submit_date = db.DateProperty()
     body = db.StringProperty()
 
     @classmethod
