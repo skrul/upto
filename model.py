@@ -6,21 +6,26 @@ class UserPreference(db.Model):
     # year and WW is the 2 digit week number.
     last_update_week_id = db.StringProperty()
 
+    @classmethod
+    def get_user_preference(cls, email_address, user=None):
+        pass
+
+    @classmethod
+    def get_all_user_preferences(cls):
+        pass
+
+    @classmethod
+    def get_users_without_updates_for_week(cls, week_id):
+        pass
+
 class WeekUpdate(db.Model):
     submit_date = db.DataProperty()
     body = db.StringProperty()
 
-def get_user_preference(email_address):
-    pass
+    @classmethod
+    def get_week_updates_for_week_id(cls, week_id):
+        pass
 
-def get_all_user_preferences():
-    pass
-
-def get_week_updates_for_week_id(week_id):
-    pass
-
-def get_users_without_updates_for_week(week_id):
-    pass
-
-def add_week_update(user, week_id, body):
-    pass
+    @classmethod
+    def add_week_update(cls, user, week_id, body):
+        pass
