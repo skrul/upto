@@ -41,11 +41,17 @@ class WeekUpdate(db.Model):
     submit_date = db.DateTimeProperty(auto_now=True)
     user_preference = db.ReferenceProperty(UserPreference)
     week_id = db.StringProperty()
-    body = db.StringProperty()
+    body = db.StringProperty(multiline=True)
 
     @classmethod
     def current_week_id(cls):
         return datetime.now().strftime('%Y%U')
+
+    @classmethod
+    def key_for(cls, user_preference, week_id):
+        key = db.Key.from_path('UserPreference', user_preference.user.email(),
+                               'WeekUpdate', week_id)
+        return key
 
     @classmethod
     def get_all_for_week_id(cls, week_id):

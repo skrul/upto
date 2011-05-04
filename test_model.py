@@ -7,14 +7,14 @@ from google.appengine.ext import testbed
 from google.appengine.api import users
 
 
-class DemoTestCase(unittest.TestCase):
+class ModelTestCase(unittest.TestCase):
   def setUp(self):
-    self.testbed = testbed.Testbed()
-    self.testbed.activate()
-    self.testbed.init_datastore_v3_stub()
+      self.testbed = testbed.Testbed()
+      self.testbed.activate()
+      self.testbed.init_datastore_v3_stub()
 
   def tearDown(self):
-    self.testbed.deactivate()
+      self.testbed.deactivate()
 
   def add_user_preference(self, email):
       user = users.User(email=email)
@@ -101,3 +101,12 @@ class DemoTestCase(unittest.TestCase):
       uw = model.WeekUpdate.add(up2, week_id, 'body2')
       ups = model.UserPreference.get_all_without_updates_for_week(week_id)
       self.assertEqual(0, len(ups))
+
+  def test_key_for_week_update(self):
+      week_id = '201101'
+      up = self.add_user_preference('homer@snpp.com')
+      model.WeekUpdate.add(up, week_id, 'body')
+
+      key = model.WeekUpdate.key_for(up, week_id)
+      wu = model.WeekUpdate.get(key)
+      self.assertEqual('body', wu.body)

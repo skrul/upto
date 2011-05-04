@@ -1,0 +1,6 @@
+Everyone's updates for this week
+{% for update in updates %}
+{{ update.name }} <{{ update.email }}>
+{{ update.body }}
+----
+{% endfor %}

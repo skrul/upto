@@ -1,0 +1,13 @@
+{% if reminder %}We want to know what you are up to this week.{% else %}What are you up to this week?{% endif %}
+{% if reminder %}Hey{% else %}Good Morning{% endif %} {{name}}!
+
+{% if reminder %}
+We still haven't heard from you.  Please reply to this email before the end of the day.
+
+{% endif %}
+Last week you were planning on doing the following:
+
+{{last_week_body}}
+
+How did you do?  Reply to this email with what you did last week and
+what you are up to this week.
